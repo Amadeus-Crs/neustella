@@ -21,7 +21,7 @@ export default function OrbitCanvas() {
 
     // 适配高清屏
     const dpr = window.devicePixelRatio || 1;
-    const size = Math.min(window.innerWidth - 32, 800);
+    const size = Math.min(window.innerWidth - 32, 1100);
     canvas.width = size * dpr;
     canvas.height = size * dpr;
     canvas.style.width = `${size}px`;
@@ -124,13 +124,6 @@ export default function OrbitCanvas() {
         ctx.fillStyle = shine;
         ctx.fill();
 
-        // 标签（发光行星显示中文名引导）
-        if (planet.glow) {
-          ctx.font = '12px sans-serif';
-          ctx.textAlign = 'center';
-          ctx.fillStyle = `${planet.color}cc`;
-          ctx.fillText(planet.nameZh, pos.x, pos.y + r + 20);
-        }
       });
 
       // 绘制太阳
@@ -143,8 +136,8 @@ export default function OrbitCanvas() {
         centerY,
         SUN.radius * 4
       );
-      sunGlow.addColorStop(0, 'rgba(255, 215, 0, 0.25)');
-      sunGlow.addColorStop(0.5, 'rgba(255, 180, 60, 0.08)');
+      sunGlow.addColorStop(0, 'rgba(255, 235, 190, 0.2)');
+      sunGlow.addColorStop(0.5, 'rgba(255, 210, 150, 0.06)');
       sunGlow.addColorStop(1, 'transparent');
       ctx.beginPath();
       ctx.arc(centerX, centerY, SUN.radius * 4, 0, Math.PI * 2);
@@ -173,11 +166,6 @@ export default function OrbitCanvas() {
       ctx.fillStyle = sunShine;
       ctx.fill();
 
-      // 太阳标签
-      ctx.font = '10px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillStyle = 'rgba(255, 215, 0, 0.5)';
-      ctx.fillText(SUN.nameZh, centerX, centerY + SUN.radius + 14);
 
       animRef.current = requestAnimationFrame(draw);
     }
