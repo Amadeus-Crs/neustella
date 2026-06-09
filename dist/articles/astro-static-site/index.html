@@ -1,0 +1,45 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="记录从选择框架到部署上线的全过程，为什么选择 Astro 以及如何用它搭建一个极致性能的静态网站。"><title>使用 Astro 构建静态博客 — Neustella</title><!-- 预加载中文字体 --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="/neustella/_astro/BaseLayout.CFQKO-HW.css">
+<style>.giscus-wrapper[data-astro-cid-fdrkzv5s],.giscus-wrapper[data-astro-cid-fdrkzv5s] iframe{width:100%}
+</style></head> <body class="min-h-screen flex flex-col bg-[#0a0a0f] text-[#f5f5f0]"> <!-- 顶部导航 --> <nav class="w-full border-b border-[#2a2a35]/50 backdrop-blur-sm sticky top-0 z-50 bg-[#0a0a0f]/80"> <div class="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between"> <a href="/neustella/" class="text-lg font-light tracking-widest text-[#f5f5f0] hover:text-[#c8a87c] transition-colors duration-300">
+NEUSTELLA
+</a> <div class="flex gap-6 text-sm"> <a href="/neustella/" class="text-[#a0a098] hover:text-[#f5f5f0] transition-colors duration-300">
+星图
+</a> <a href="/neustella/articles" class="text-[#a0a098] hover:text-[#f5f5f0] transition-colors duration-300">
+文章
+</a> </div> </div> </nav> <!-- 主内容 --> <main class="flex-1 w-full">  <article class="max-w-2xl mx-auto px-6 py-12"> <!-- 文章头部 --> <header class="mb-10 pb-8 border-b border-[#2a2a35]"> <div class="flex items-center gap-3 mb-4"> <span class="text-xs tracking-wider px-3 py-1 rounded-full border border-[#2a2a35] text-[#7de3f5]"> 技术 </span> <time class="text-xs text-[#a0a098]" datetime="2024-12-15T00:00:00.000Z"> 2024年12月15日 </time> </div> <h1 class="text-3xl md:text-4xl font-light text-[#f5f5f0] leading-tight tracking-wide"> 使用 Astro 构建静态博客 </h1> </header> <!-- 文章正文 --> <div class="article-content">  <h1 id="使用-astro-构建静态博客">使用 Astro 构建静态博客</h1>
+<blockquote>
+<p>这是一篇示例技术文章。上传新文章时，只需在 <code>src/content/articles/</code> 目录下新建 <code>.md</code> 文件，按照此格式填写 frontmatter 即可。</p>
+</blockquote>
+<h2 id="为什么选择-astro">为什么选择 Astro</h2>
+<p>Astro 是一个<strong>以内容为中心</strong>的 Web 框架，它的核心优势在于：</p>
+<ul>
+<li><strong>零 JS 默认</strong>：页面默认不发送任何 JavaScript，只输出纯 HTML</li>
+<li><strong>群岛架构</strong>：只在需要交互的地方加载 JS，其余保持静态</li>
+<li><strong>原生 Markdown 支持</strong>：内置 Content Collections，文章管理非常方便</li>
+<li><strong>卓越的构建性能</strong>：构建速度极快，输出产物轻量</li>
+</ul>
+<h2 id="项目结构">项目结构</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>src/</span></span>
+<span class="line"><span>├── content/articles/   # 文章存放目录</span></span>
+<span class="line"><span>├── layouts/            # 页面布局</span></span>
+<span class="line"><span>├── components/         # 可复用组件</span></span>
+<span class="line"><span>└── pages/              # 路由页面</span></span></code></pre>
+<h2 id="部署到-github-pages">部署到 GitHub Pages</h2>
+<p>Astro 的静态输出非常适合 GitHub Pages。只需：</p>
+<ol>
+<li>在 <code>astro.config.mjs</code> 中配置 <code>site</code> 和 <code>base</code></li>
+<li>添加 GitHub Actions 工作流</li>
+<li>推送代码，自动部署</li>
+</ol>
+<h2 id="代码示例">代码示例</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#6A737D">// 获取所有文章</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> articles</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#B392F0"> getCollection</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'articles'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// 按日期排序</span></span>
+<span class="line"><span style="color:#E1E4E8">articles.</span><span style="color:#B392F0">sort</span><span style="color:#E1E4E8">((</span><span style="color:#FFAB70">a</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">b</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span></span>
+<span class="line"><span style="color:#E1E4E8">  b.data.date.</span><span style="color:#B392F0">getTime</span><span style="color:#E1E4E8">() </span><span style="color:#F97583">-</span><span style="color:#E1E4E8"> a.data.date.</span><span style="color:#B392F0">getTime</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span></code></pre>
+<h2 id="总结">总结</h2>
+<p>对于以内容为主的个人博客，Astro 是一个非常优雅的选择。它在性能和开发体验之间取得了很好的平衡。</p>
+<hr>
+<p><em>这篇示例展示了 Markdown 渲染效果，包括标题、引用、代码块和列表。</em></p>  </div> <!-- 评论区 --> <section class="mt-16 pt-10 border-t border-[#2a2a35]"> <h2 class="text-xl font-light text-[#f5f5f0] mb-6">评论</h2> <div class="giscus-wrapper" data-astro-cid-fdrkzv5s> <script src="https://giscus.app/client.js" data-repo="yourusername/neustella" data-repo-id="R_your_repo_id" data-category="Announcements" data-category-id="DIC_your_category_id" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="dark" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async></script> </div> </section> </article>  </main> <!-- 底部 --> <footer class="w-full border-t border-[#2a2a35]/30 py-8 mt-12"> <div class="max-w-3xl mx-auto px-6 text-center text-xs text-[#a0a098]/60"> <p>Neustella — 在星辰与代码之间</p> <p class="mt-1">Built with Astro &amp; stardust</p> </div> </footer> </body></html>

@@ -1,0 +1,134 @@
+---
+/**
+ * 文章列表页
+ * 默认展示"观察"分类的文章
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+// 获取所有非草稿文章，按日期倒序排列
+const allArticles = await getCollection('articles', (entry) => !entry.data.draft);
+allArticles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const observeArticles = allArticles.filter((a) => a.data.category === 'observe');
+const techArticles = allArticles.filter((a) => a.data.category === 'tech');
+
+// 默认展示"观察"，但页面同时提供两个分类的入口
+---
+
+<BaseLayout title="文章 — Neustella" description="技术与观察的文章列表">
+  <div class="max-w-2xl mx-auto px-6 py-12">
+    <!-- 页面标题 -->
+    <header class="mb-10">
+      <h1 class="text-3xl font-light text-[#f5f5f0] tracking-wide mb-2">文章</h1>
+      <p class="text-sm text-[#a0a098]">点击分类筛选，或浏览全部</p>
+    </header>
+
+    <!-- 分类切换 -->
+    <div class="flex gap-4 mb-10 border-b border-[#2a2a35]">
+      <a
+        href="#observe"
+        id="tab-observe"
+        class="pb-3 text-sm tracking-wider border-b-2 border-[#c8a87c] text-[#f5f5f0] transition-colors duration-300"
+      >
+        观察
+      </a>
+      <a
+        href="#tech"
+        id="tab-tech"
+        class="pb-3 text-sm tracking-wider border-b-2 border-transparent text-[#a0a098] hover:text-[#f5f5f0] transition-colors duration-300"
+      >
+        技术
+      </a>
+      <a
+        href="#all"
+        id="tab-all"
+        class="pb-3 text-sm tracking-wider border-b-2 border-transparent text-[#a0a098] hover:text-[#f5f5f0] transition-colors duration-300"
+      >
+        全部
+      </a>
+    </div>
+
+    <!-- 文章列表 -->
+    <div id="list-observe" class="space-y-4">
+      {observeArticles.length === 0 && (
+        <p class="text-sm text-[#a0a098] text-center py-12">暂无观察类文章</p>
+      )}
+      {observeArticles.map((article) => (
+        <ArticleCard
+          title={article.data.title}
+          date={article.data.date}
+          description={article.data.description}
+          slug={article.id}
+          category={article.data.category}
+        />
+      ))}
+    </div>
+
+    <div id="list-tech" class="space-y-4 hidden">
+      {techArticles.length === 0 && (
+        <p class="text-sm text-[#a0a098] text-center py-12">暂无技术类文章</p>
+      )}
+      {techArticles.map((article) => (
+        <ArticleCard
+          title={article.data.title}
+          date={article.data.date}
+          description={article.data.description}
+          slug={article.id}
+          category={article.data.category}
+        />
+      ))}
+    </div>
+
+    <div id="list-all" class="space-y-4 hidden">
+      {allArticles.length === 0 && (
+        <p class="text-sm text-[#a0a098] text-center py-12">暂无文章</p>
+      )}
+      {allArticles.map((article) => (
+        <ArticleCard
+          title={article.data.title}
+          date={article.data.date}
+          description={article.data.description}
+          slug={article.id}
+          category={article.data.category}
+        />
+      ))}
+    </div>
+  </div>
+
+  <!-- 分类切换脚本 -->
+  <script>
+    const tabs = {
+      observe: document.getElementById('tab-observe'),
+      tech: document.getElementById('tab-tech'),
+      all: document.getElementById('tab-all'),
+    };
+    const lists = {
+      observe: document.getElementById('list-observe'),
+      tech: document.getElementById('list-tech'),
+      all: document.getElementById('list-all'),
+    };
+
+    function switchTab(active: keyof typeof tabs) {
+      (Object.keys(tabs) as Array<keyof typeof tabs>).forEach((key) => {
+        const tab = tabs[key];
+        const list = lists[key];
+        if (key === active) {
+          tab?.classList.add('border-[#c8a87c]', 'text-[#f5f5f0]');
+          tab?.classList.remove('border-transparent', 'text-[#a0a098]');
+          list?.classList.remove('hidden');
+        } else {
+          tab?.classList.remove('border-[#c8a87c]', 'text-[#f5f5f0]');
+          tab?.classList.add('border-transparent', 'text-[#a0a098]');
+          list?.classList.add('hidden');
+        }
+      });
+    }
+
+    tabs.observe?.addEventListener('click', (e) => { e.preventDefault(); switchTab('observe'); });
+    tabs.tech?.addEventListener('click', (e) => { e.preventDefault(); switchTab('tech'); });
+    tabs.all?.addEventListener('click', (e) => { e.preventDefault(); switchTab('all'); });
+  </script>
+</BaseLayout>

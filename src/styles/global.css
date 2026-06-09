@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+/* ============================================
+   Neustella 全局样式
+   设计理念：禅意、极简、深空
+   ============================================ */
+
+@theme {
+  /* 禅意配色 */
+  --color-void: #0a0a0f;
+  --color-void-light: #12121a;
+  --color-moon: #f5f5f0;
+  --color-moon-dim: #a0a098;
+  --color-wood: #8b7355;
+  --color-wood-light: #b8a080;
+  --color-mars: #c4593a;
+  --color-sand: #d4c4a8;
+  --color-ink: #2a2a35;
+
+  /* 字体 */
+  --font-sans: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-serif: "Noto Serif SC", "Songti SC", serif;
+}
+
+/* 基础 */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-void);
+  color: var(--color-moon);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 选中文本 */
+::selection {
+  background: var(--color-wood);
+  color: var(--color-void);
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-void);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-wood);
+}
+
+/* Markdown 文章样式 */
+.article-content h1 {
+  font-size: 1.875rem;
+  font-weight: 300;
+  margin: 2rem 0 1rem;
+  color: var(--color-moon);
+  letter-spacing: 0.05em;
+}
+
+.article-content h2 {
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin: 1.75rem 0 0.875rem;
+  color: var(--color-moon);
+  border-bottom: 1px solid var(--color-ink);
+  padding-bottom: 0.5rem;
+}
+
+.article-content h3 {
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin: 1.5rem 0 0.75rem;
+  color: var(--color-moon-dim);
+}
+
+.article-content p {
+  margin: 1rem 0;
+  color: var(--color-moon-dim);
+}
+
+.article-content a {
+  color: var(--color-wood-light);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.article-content a:hover {
+  border-bottom-color: var(--color-wood-light);
+}
+
+.article-content ul, .article-content ol {
+  margin: 1rem 0 1rem 1.5rem;
+  color: var(--color-moon-dim);
+}
+
+.article-content li {
+  margin: 0.375rem 0;
+}
+
+.article-content blockquote {
+  border-left: 2px solid var(--color-wood);
+  margin: 1.5rem 0;
+  padding: 0.5rem 0 0.5rem 1.25rem;
+  color: var(--color-sand);
+  font-style: italic;
+  background: var(--color-void-light);
+  border-radius: 0 4px 4px 0;
+}
+
+.article-content code {
+  background: var(--color-ink);
+  padding: 0.125rem 0.375rem;
+  border-radius: 3px;
+  font-size: 0.875em;
+  color: var(--color-wood-light);
+}
+
+.article-content pre {
+  background: var(--color-void-light);
+  border: 1px solid var(--color-ink);
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1.25rem 0;
+}
+
+.article-content pre code {
+  background: transparent;
+  padding: 0;
+  color: var(--color-moon-dim);
+}
+
+.article-content hr {
+  border: none;
+  border-top: 1px solid var(--color-ink);
+  margin: 2rem 0;
+}
+
+.article-content img {
+  max-width: 100%;
+  border-radius: 4px;
+  margin: 1.25rem 0;
+}
+
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25rem 0;
+}
+
+.article-content th, .article-content td {
+  border: 1px solid var(--color-ink);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.article-content th {
+  background: var(--color-void-light);
+  color: var(--color-moon);
+  font-weight: 400;
+}
+
+/* 动画 */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}

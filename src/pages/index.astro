@@ -1,0 +1,36 @@
+---
+/**
+ * 首页 — 太阳系轨道可视化
+ * 中心为太阳，各行星沿轨道运动，点击木星进入文章世界
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import OrbitCanvas from '../components/OrbitCanvas';
+---
+
+<BaseLayout title="Neustella" description="在星辰与代码之间的个人博客">
+  <div class="flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] px-4">
+    <!-- 标题区域 -->
+    <div class="text-center mb-8">
+      <h1 class="text-4xl md:text-5xl font-light tracking-[0.2em] text-[#f5f5f0] mb-3">
+        NEUSTELLA
+      </h1>
+      <p class="text-sm text-[#a0a098] tracking-wider font-light">
+        在星辰与代码之间
+      </p>
+    </div>
+
+    <!-- 太阳系画布 -->
+    <div class="relative">
+      <OrbitCanvas client:load />
+    </div>
+
+    <!-- 简介 -->
+    <div class="max-w-md text-center mt-10 px-4">
+      <p class="text-sm text-[#a0a098] leading-relaxed">
+        一片按轨道运行的文字碎片。<br class="hidden md:block" />
+        点击行星，看看会落在哪里。
+      </p>
+    </div>
+  </div>
+</BaseLayout>

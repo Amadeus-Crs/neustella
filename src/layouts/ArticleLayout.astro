@@ -1,0 +1,55 @@
+---
+/**
+ * ArticleLayout.astro
+ * 文章页专用布局，继承基础布局
+ */
+
+import BaseLayout from './BaseLayout.astro';
+import CommentSection from '../components/CommentSection.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  date: Date;
+  category: 'tech' | 'observe';
+}
+
+const { title, description, date, category } = Astro.props;
+
+const categoryLabel = category === 'tech' ? '技术' : '观察';
+const categoryColor = category === 'tech' ? 'text-[#7de3f5]' : 'text-[#c8a87c]';
+---
+
+<BaseLayout title={`${title} — Neustella`} description={description}>
+  <article class="max-w-2xl mx-auto px-6 py-12">
+    <!-- 文章头部 -->
+    <header class="mb-10 pb-8 border-b border-[#2a2a35]">
+      <div class="flex items-center gap-3 mb-4">
+        <span class={`text-xs tracking-wider px-3 py-1 rounded-full border border-[#2a2a35] ${categoryColor}`}>
+          {categoryLabel}
+        </span>
+        <time class="text-xs text-[#a0a098]" datetime={date.toISOString()}>
+          {date.toLocaleDateString('zh-CN', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })}
+        </time>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-light text-[#f5f5f0] leading-tight tracking-wide">
+        {title}
+      </h1>
+    </header>
+
+    <!-- 文章正文 -->
+    <div class="article-content">
+      <slot />
+    </div>
+
+    <!-- 评论区 -->
+    <section class="mt-16 pt-10 border-t border-[#2a2a35]">
+      <h2 class="text-xl font-light text-[#f5f5f0] mb-6">评论</h2>
+      <CommentSection />
+    </section>
+  </article>
+</BaseLayout>

@@ -1,0 +1,44 @@
+---
+/**
+ * CommentSection.astro
+ * Giscus 评论系统嵌入
+ * 使用 GitHub Discussions 作为评论后端
+ *
+ * 使用说明：
+ * 1. 访问 https://giscus.app/zh-CN 获取配置
+ * 2. 在上方填入你的仓库名、分类名
+ * 3. 将生成的 data-repo, data-repo-id, data-category-id 替换下方值
+ * 4. 其余配置项可保持不变
+ */
+
+---
+
+<div class="giscus-wrapper">
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="yourusername/neustella"
+    data-repo-id="R_your_repo_id"
+    data-category="Announcements"
+    data-category-id="DIC_your_category_id"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="dark"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+  ></script>
+</div>
+
+<style>
+  .giscus-wrapper {
+    width: 100%;
+  }
+  /* Giscus iframe 自适应 */
+  .giscus-wrapper :global(iframe) {
+    width: 100%;
+  }
+</style>

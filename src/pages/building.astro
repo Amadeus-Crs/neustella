@@ -1,0 +1,33 @@
+---
+/**
+ * 施工中占位页
+ * 暂未建立的界面显示此页
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="正在施工中 — Neustella">
+  <div class="flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] px-4">
+    <!-- 动画符号 -->
+    <div class="text-6xl mb-6" style="animation: float 3s ease-in-out infinite;">
+      ┏ (^ω^)=☞
+    </div>
+
+    <h1 class="text-2xl font-light text-[#f5f5f0] tracking-wider mb-3">
+      正在施工中
+    </h1>
+
+    <p class="text-sm text-[#a0a098] text-center max-w-xs leading-relaxed mb-8">
+      这片星域尚未开垦<br />
+      请移步其他星球探索
+    </p>
+
+    <a
+      href="/neustella/"
+      class="px-6 py-2 border border-[#2a2a35] rounded-full text-sm text-[#a0a098] hover:text-[#f5f5f0] hover:border-[#8b7355] transition-all duration-300"
+    >
+      返回星图
+    </a>
+  </div>
+</BaseLayout>
